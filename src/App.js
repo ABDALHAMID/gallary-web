@@ -1,90 +1,72 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import SearchBar from './components/searchBar';
+import ImageGallery from './components/ImageGallery';
 
 const App = () => {
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
+  // Initialize the images state with the mock data
+  const [images, setImages] = useState([
+    {
+      id: 1,
+      webformatURL: "https://pixabay.com/get/1.jpg",
+      tags: "louvre, pyramid, paris",
+      imageWidth: 1600,
+      imageHeight: 1066,
+      pageURL: "https://pixabay.com/photos/louvre-pyramid-paris-1/"
+    },
+    {
+      id: 2,
+      webformatURL: "https://pixabay.com/get/2.jpg",
+      tags: "paris, france, eiffel tower",
+      imageWidth: 2200,
+      imageHeight: 1094,
+      pageURL: "https://pixabay.com/photos/paris-france-eiffel-tower-2/"
+    },
+    {
+      id: 3,
+      webformatURL: "https://pixabay.com/get/3.jpg",
+      tags: "bicycle, building, city",
+      imageWidth: 2859,
+      imageHeight: 4096,
+      pageURL: "https://pixabay.com/photos/bicycle-building-city-3/"
+    },
+    {
+      id: 4,
+      webformatURL: "https://pixabay.com/get/4.jpg",
+      tags: "paris, eiffel tower, france",
+      imageWidth: 6000,
+      imageHeight: 4000,
+      pageURL: "https://pixabay.com/photos/paris-eiffel-tower-france-4/"
+    },
+    {
+      id: 5,
+      webformatURL: "https://pixabay.com/get/5.jpg",
+      tags: "eiffel tower, paris, france",
+      imageWidth: 1063,
+      imageHeight: 1600,
+      pageURL: "https://pixabay.com/photos/eiffel-tower-paris-france-5/"
+    },
+    {
+      id: 6,
+      webformatURL: "https://pixabay.com/get/6.jpg",
+      tags: "eiffel tower, paris, france",
+      imageWidth: 4601,
+      imageHeight: 3067,
+      pageURL: "https://pixabay.com/photos/eiffel-tower-paris-france-6/"
+    }
+  ]);
 
-  const fetchImages = async () => {
-    const API_KEY = 'VOTRE_API_KEY_PIXABAY';
-    const url = `https://pixabay.com/api/?q=${query}&key=${API_KEY}`;
-    const response = await axios.get(url);
-    setImages(response.data.hits);
+  // Function to fetch images (you can leave it empty for now if you're testing mock data)
+  const fetchImages = async (query) => {
+    console.log(`Search query: ${query}`);
+    // Replace this with API call logic when ready
   };
 
   return (
     <div>
-      {/* Barre de navigation */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">Gallery</a>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="#">Home</a>
-            </li>
-          </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="button"
-              onClick={fetchImages}
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      </nav>
-
-      {/* Galerie */}
-      <div className="container mt-4">
-        <div className="row">
-          {images.map((image) => (
-            <div className="col-md-4 mb-4" key={image.id}>
-              <div className="card">
-                <img
-                  src={image.webformatURL}
-                  className="card-img-top"
-                  alt={image.tags}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{image.tags}</h5>
-                  <p className="card-text">
-                    {image.imageWidth} x {image.imageHeight}
-                  </p>
-                  <a href={image.pageURL} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                    More Details
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Pagination */}
-      <div className="container">
-        <nav>
-          <ul className="pagination justify-content-center">
-            <li className="page-item">
-              <a className="page-link" href="#">1</a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">2</a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">3</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <Header />
+      <SearchBar onSearch={fetchImages} />
+      <ImageGallery images={images} />
     </div>
   );
 };
