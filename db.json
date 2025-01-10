@@ -1,0 +1,21 @@
+{
+    "images": [
+      {
+        "id": 1,
+        "webformatURL": "https://pixabay.com/get/1.jpg",
+        "tags": "louvre, pyramid, paris",
+        "imageWidth": 1600,
+        "imageHeight": 1066,
+        "pageURL": "https://pixabay.com/photos/louvre-pyramid-paris-1/"
+      },
+      {
+        "id": 2,
+        "webformatURL": "https://pixabay.com/get/2.jpg",
+        "tags": "paris, france, eiffel tower",
+        "imageWidth": 2200,
+        "imageHeight": 1094,
+        "pageURL": "https://pixabay.com/photos/paris-france-eiffel-tower-2/"
+      }
+    ]
+  }
+  
