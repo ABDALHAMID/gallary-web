@@ -1,0 +1,51 @@
+/* WeatherForecastStyles.css */
+.weather-forecast-container {
+    margin-top: 20px;
+  }
+  
+  .day-forecast {
+    margin-bottom: 20px;
+  }
+  
+  .time-line {
+    position: relative;
+    height: 70px;
+    border-top: 2px dashed #ddd;
+  }
+  
+  .time-slot {
+    position: absolute;
+    top: -5px;
+    text-align: center;
+  }
+  
+  .forecast-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .forecast-icon:hover {
+    transform: scale(1.5);
+  }
+  
+  .time-label {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .tooltip {
+    position: absolute;
+    bottom: 80px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  

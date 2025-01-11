@@ -5,14 +5,13 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';   
+import WeatherForecast from './WeatherForecast';
 import './style.css'
-
-
-
 
 const WeatherInfo = () => {
   const { city } = useParams();
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,8 +35,23 @@ const WeatherInfo = () => {
     }
   };
 
+  const fetchWeatherForecast = async (city) => {
+    try {
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
+        params: {
+          q: city,
+          appid: process.env.REACT_APP_WEATHER_API_KEY,
+          units: 'metric',
+        },
+      });
+      return response.data.list;
+    } catch (error) {
+      console.error('Error fetching weather forecast:', error);
+    }
+  };
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const weatherResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
         params: {
@@ -46,8 +60,10 @@ const WeatherInfo = () => {
           units: 'metric',
         },
       });
-      console.log(weatherResponse.data); 
       setWeather(weatherResponse.data);
+
+      const forecastResponse = await fetchWeatherForecast(city);
+      setForecast(forecastResponse);
 
       const imagesResponse = await fetchCityImages(city);
       setImages(imagesResponse);
@@ -57,7 +73,6 @@ const WeatherInfo = () => {
       setLoading(false);
     }
   };
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -157,11 +172,13 @@ const WeatherInfo = () => {
           </div>
         </Col>
       </Row>
+      <Row>
+        <Col md={12}>
+          <WeatherForecast forecast={forecast} />
+        </Col>
+      </Row>
     </Container>
   );
-  
-
-  
 };
 
 export default WeatherInfo;
