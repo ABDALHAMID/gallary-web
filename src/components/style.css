@@ -1,0 +1,16 @@
+/* styles.css */
+.carousel-container {
+    width: 600px; /* Adjust the width as needed */
+    height: 400px; /* Adjust the height as needed */
+    margin: 0; /* Center the carousel */
+    max-width: 100%;
+
+  }
+
+  
+  .carousel-containerarousel img {
+    object-fit: fill; /* Ensure images cover the entire carousel area */
+    width: 100%; /* Make images fill the carousel width */
+    height: auto; /* Make images fill the carousel height */
+  }
+  

@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* styles.css */
+.carousel-container {
+  width: 600px; /* Adjust the width as needed */
+  height: 400px; /* Adjust the height as needed */
+  margin: 0 auto; /* Center the carousel */
+}
+
+.carousel img {
+  object-fit: cover; /* Ensure images cover the entire carousel area */
+  width: 100%; /* Make images fill the carousel width */
+  height: 100%; /* Make images fill the carousel height */
+}
