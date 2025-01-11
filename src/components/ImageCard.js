@@ -11,10 +11,10 @@ const ImageCard = ({ image, city }) => {
       <div className="card-body">
         <h5 className="card-title">{image.tags}</h5>
         <p className="card-text">
-          {image.imageWidth} x {image.imageHeight}
+          Uploadé par: {image.user}
         </p>
         <Link to={`/weather/${city}`} className="btn btn-primary">
-          More Details
+          weather Details
         </Link>
       </div>
     </div>

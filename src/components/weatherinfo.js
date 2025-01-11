@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';   
 import './style.css'
 
@@ -30,7 +30,6 @@ const WeatherInfo = () => {
           image_type: 'photo',
         },
       });
-      //   setImages(response.data.hits)
       return response.data.hits;
     } catch (error) {
       console.error('Error fetching city images:', error);
@@ -47,7 +46,7 @@ const WeatherInfo = () => {
           units: 'metric',
         },
       });
-      console.log(weatherResponse.data); // Log the response data 
+      console.log(weatherResponse.data); 
       setWeather(weatherResponse.data);
 
       const imagesResponse = await fetchCityImages(city);
@@ -72,15 +71,81 @@ const WeatherInfo = () => {
     <Container>
       <Row>
         <Col md={6}>
-          <h2>Weather in {city}</h2>
-          <p>Temperature: {weather.main.temp}°C</p>
-          <p>Weather: {weather.weather[0].description}</p>
-          <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`} alt="Weather icon" />
-          <p>Humidity: {weather.main.humidity}%</p>
-          <p>Wind Speed: {weather.wind.speed} m/s</p>
+          {weather ? (
+            <>
+              <Row>
+                <Col>
+                  <h2>Météo à {city}</h2>
+                </Col>
+                <Col>
+                  <img 
+                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`} 
+                    className="weather-icon" 
+                    alt="Icône météo" 
+                    width={60} 
+                    height={60} 
+                  />
+                </Col>
+              </Row >
+              <Table striped bordered hover>
+                <tbody>
+                  <tr>
+                    <td>Température</td>
+                    <td>{weather.main.temp}°C</td>
+                  </tr>
+                  <tr>
+                    <td>Température ressentie</td>
+                    <td>{weather.main.feels_like}°C</td>
+                  </tr>
+                  <tr>
+                    <td>Météo</td>
+                    <td>{weather.weather[0].description}</td>
+                  </tr>
+                  <tr>
+                    <td>Humidité</td>
+                    <td>{weather.main.humidity}%</td>
+                  </tr>
+                  <tr>
+                    <td>Vitesse du vent</td>
+                    <td>{weather.wind.speed} m/s</td>
+                  </tr>
+                  <tr>
+                    <td>Nuageux</td>
+                    <td>{weather.clouds.all}%</td>
+                  </tr>
+                  <tr>
+                    <td>Visibilité</td>
+                    <td>{weather.visibility} mètres</td>
+                  </tr>
+                  <tr>
+                    <td>Pression</td>
+                    <td>{weather.main.pressure} hPa</td>
+                  </tr>
+                  <tr>
+                    <td>Lever du soleil</td>
+                    <td>{new Date(weather.sys.sunrise * 1000).toLocaleTimeString()}</td>
+                  </tr>
+                  <tr>
+                    <td>Coucher du soleil</td>
+                    <td>{new Date(weather.sys.sunset * 1000).toLocaleTimeString()}</td>
+                  </tr>
+                  <tr>
+                    <td>Latitude</td>
+                    <td>{weather.coord.lat}°</td>
+                  </tr>
+                  <tr>
+                    <td>Longitude</td>
+                    <td>{weather.coord.lon}°</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </>
+          ) : (
+            <p>Loading weather information...</p>
+          )}
         </Col>
         <Col md={6}>
-          <h3>Images of {city}</h3>
+          <h3>Images de {city}</h3>
           <div className="carousel-container">
             <Carousel showArrows autoPlay infiniteLoop>
               {images.map((image, index) => (
@@ -94,6 +159,8 @@ const WeatherInfo = () => {
       </Row>
     </Container>
   );
+  
+
   
 };
 

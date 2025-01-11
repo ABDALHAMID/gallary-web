@@ -7,10 +7,9 @@ import WeatherInfo from './components/weatherinfo';
 import axios from 'axios';
 
 const App = () => {
-  // Initialize the images state with the mock data
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [query, setQuery] = useState('paris'); // Default search term
+  const [query, setQuery] = useState('paris');
   
   useEffect(() => {
     fetchImages(query);
